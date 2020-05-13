@@ -10,7 +10,9 @@ export const getBreeds =()=> dispatch =>{
     dispatch({type:GET_ALL_BREEDS})
     axios.get('https://dog.ceo/api/breeds/list/all')
     .then(res=>{
-        dispatch({type:GET_ALL_BREEDS_SUCCESS, payload:res.data})
+       setTimeout(()=>{
+        dispatch({type:GET_ALL_BREEDS_SUCCESS, payload:res.data.message})
+       },2000)
     })
     .catch((err)=>{
         dispatch({type:GET_ALL_BREEDS_FAIL,payload:err})

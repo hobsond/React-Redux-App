@@ -1,14 +1,35 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
 import {store} from './reducers/reducer'
 import {getBreeds} from './actions/getAllBreeds'
+import Landing from './components/Landing'
 import './App.css';
 
-function App() {
+function App(props) {
+  useEffect(()=>{props.getBreeds()},[])
   
   return (
       <div className='App'>
-        <button onClick={getBreeds}>breeds</button>
+
+        
+          {props.state.fetching ? 
+          <div>
+            <p>loading....</p>
+          </div> :
+          <BrowserRouter>
+          
+            <Route path='/'>
+              <Landing/>
+            </Route>
+
+          </BrowserRouter>
+          
+          }
+
+        
+
+        
 
       </div>
     
@@ -16,7 +37,8 @@ function App() {
 }
 const MSTP = state=>{
   return {
-    breed:state
+    state:state
+
   }
 }
 export default connect(MSTP,{getBreeds})(App);
